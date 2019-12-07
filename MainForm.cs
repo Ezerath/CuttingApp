@@ -1,41 +1,106 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CuttingApp
 {
     public partial class MainForm : Form
     {
-        Detail detail;
+        PictureBox materialPB;
+        PictureBox detailPB;
+        Size tempX;
+        Size tempY;
+        bool rotated = false;
+        Point mouseLocation;
+        int scale = 4;
         public MainForm()
         {
             InitializeComponent();
+            addMaterialButton.Click += AddButton_Click;
+            addDetailButton.Click += AddDetailButton_Click;
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void AddDetailButton_Click(object sender, EventArgs e)
         {
-
-        }
-        private void CreateRect(PaintEventArgs e)
-        {
-            detail = new Detail("Material", 2750, 1830);
-            Pen pen = new Pen(Color.Black);
-            Rectangle rect = new Rectangle(10, 10, detail.Length, detail.Width);
-            //rect.Size = new Size(detail.Length, detail.Width);
-            e.Graphics.ScaleTransform(0.1f, 0.1f);
-            e.Graphics.DrawRectangle(pen, rect);
-
+            if (materialPB != null)
+            {
+                CreateDetail();
+            }
         }
 
-        private void MainForm_Paint(object sender, PaintEventArgs e)
+        private void AddButton_Click(object sender, EventArgs e)
         {
-            CreateRect(e);
+            CreateMaterial();
+        }
+        //private void CreateRect(PaintEventArgs e)
+        //{
+        //    detail = new Detail("Material", 2750, 1830);
+        //    Pen pen = new Pen(Color.Black);
+        //    Rectangle rect = new Rectangle(10, 10, detail.Xsize, detail.Ysize);
+        //    e.Graphics.ScaleTransform(0.2f, 0.2f);
+        //    e.Graphics.DrawRectangle(pen, rect);
+
+        //}
+        private void CreateMaterial()
+        {
+            var material = new Detail("Material", 2750, 1830);
+            materialPB = new PictureBox
+            {
+                Size = new Size(material.Xsize / scale, material.Ysize / scale),
+                Location = new Point(10, 10),
+                BorderStyle = BorderStyle.FixedSingle,
+                ImageLocation = "Gray.jpg",
+            };
+            panel.Controls.Add(materialPB);
+        }
+        private void CreateDetail()
+        {
+            detailPB = new PictureBox
+            {
+                Size = new Size(720 / scale, 320 / scale),
+                Location = new Point(10, 10),
+                BorderStyle = BorderStyle.FixedSingle,
+                ImageLocation = "Gray.jpg",
+            };
+            //detailPB.Click += DetailPB_Click;
+            detailPB.MouseDown += DetailPB_MouseDown;
+            detailPB.MouseMove += DetailPB_MouseMove;
+            tempX = new Size(detailPB.Width, detailPB.Height);
+            tempY = new Size(detailPB.Height, detailPB.Width);
+            materialPB.Controls.Add(detailPB);
+        }
+
+        private void DetailPB_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                detailPB.Left = e.X + detailPB.Left - mouseLocation.X;
+                detailPB.Top = e.Y + detailPB.Top - mouseLocation.Y;
+            }
+        }
+
+        private void DetailPB_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                mouseLocation = e.Location;
+            if (e.Button == MouseButtons.Right)
+            {
+                if (!rotated)
+                {
+                    detailPB.Size = tempX;
+                    rotated = true;
+                }
+                else
+                {
+                    detailPB.Size = tempY;
+                    rotated = false;
+                }
+            }
+        }
+
+        private void DetailPB_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("check");
         }
     }
 }

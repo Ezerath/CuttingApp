@@ -28,40 +28,58 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            this.addMaterialButton = new System.Windows.Forms.Button();
+            this.panel = new System.Windows.Forms.Panel();
+            this.addDetailButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // pictureBox
+            // addMaterialButton
             // 
-            this.pictureBox.Location = new System.Drawing.Point(40, 23);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(680, 399);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
-            this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
+            this.addMaterialButton.Location = new System.Drawing.Point(759, 23);
+            this.addMaterialButton.Name = "addMaterialButton";
+            this.addMaterialButton.Size = new System.Drawing.Size(75, 72);
+            this.addMaterialButton.TabIndex = 1;
+            this.addMaterialButton.Text = "Добавить\r\nматериал";
+            this.addMaterialButton.UseVisualStyleBackColor = true;
+            // 
+            // panel
+            // 
+            this.panel.AutoScroll = true;
+            this.panel.BackColor = System.Drawing.Color.White;
+            this.panel.Location = new System.Drawing.Point(13, 23);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(728, 397);
+            this.panel.TabIndex = 2;
+            // 
+            // addDetailButton
+            // 
+            this.addDetailButton.Location = new System.Drawing.Point(759, 101);
+            this.addDetailButton.Name = "addDetailButton";
+            this.addDetailButton.Size = new System.Drawing.Size(75, 70);
+            this.addDetailButton.TabIndex = 3;
+            this.addDetailButton.Text = "Добавить\r\nдеталь";
+            this.addDetailButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pictureBox);
+            this.ClientSize = new System.Drawing.Size(886, 450);
+            this.Controls.Add(this.addDetailButton);
+            this.Controls.Add(this.panel);
+            this.Controls.Add(this.addMaterialButton);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CuttingApp";
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.Button addMaterialButton;
+        private System.Windows.Forms.Panel panel;
+        private System.Windows.Forms.Button addDetailButton;
     }
 }
 
